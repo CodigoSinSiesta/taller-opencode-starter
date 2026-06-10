@@ -1,0 +1,30 @@
+{
+  "name": "taller-opencode-starter",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Starter del taller-opencode de Código Sin Siesta. Mini gestor de tareas en TypeScript sobre el que practicar spec-driven development con OpenCode + OpenSpec (motor DeepSeek).",
+  "type": "module",
+  "packageManager": "pnpm@11.5.2",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "test": "node --test --import tsx tests/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "setup": "bash scripts/setup.sh",
+    "validate": "bash scripts/validate.sh"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  },
+  "license": "MIT",
+  "author": "Alejandro de la Fuente — Código Sin Siesta",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CodigoSinSiesta/taller-opencode-starter"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "name": "Taller OpenCode: Agentes de codificación",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bookworm",
+
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/python:1": { "version": "3.12" }
+  },
+
+  "containerEnv": {
+    "LANG": "es_ES.UTF-8",
+    "LC_ALL": "es_ES.UTF-8",
+    "LC_CTYPE": "es_ES.UTF-8"
+  },
+
+  "remoteEnv": {
+    "OPENCODE_MODEL": "deepseek/deepseek-chat"
+  },
+
+  "postCreateCommand": "corepack enable && corepack prepare pnpm@11.5.2 --activate && bash scripts/setup.sh && echo '✅ Codespace listo — pega tu DEEPSEEK_API_KEY y ejecuta: opencode'",
+
+  "postStartCommand": "echo 'Bienvenido al Taller OpenCode — Agentes de codificación (Código Sin Siesta)'",
+
+  "forwardPorts": [],
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-typescript-next",
+        "sst-dev.opencode"
+      ],
+      "settings": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "[typescript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[json]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "typescript.enablePromptUseWorkspaceTsdk": true,
+        "terminal.integrated.env.linux": {
+          "LANG": "es_ES.UTF-8"
+        }
+      }
+    }
+  },
+
+  "remoteUser": "node",
+  "updateRemoteUserUID": false
+}
