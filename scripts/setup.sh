@@ -41,8 +41,8 @@ if ! command -v node >/dev/null 2>&1; then
   exit 1
 fi
 NODE_MAJOR="$(node -p 'process.versions.node.split(".")[0]')"
-if [[ "${NODE_MAJOR}" -lt 20 ]]; then
-  err "Node ${NODE_MAJOR} detectado; el taller necesita Node >= 20. Actualiza Node y reintenta."
+if [[ "${NODE_MAJOR}" -lt 22 ]]; then
+  err "Node ${NODE_MAJOR} detectado; el taller necesita Node >= 22.13 (pnpm 11.5.2 usa node:sqlite). Actualiza Node y reintenta."
   exit 1
 fi
 ok "Node $(node --version)"

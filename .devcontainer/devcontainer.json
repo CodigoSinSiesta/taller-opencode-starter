@@ -1,6 +1,6 @@
 {
   "name": "Taller OpenCode: Agentes de codificación",
-  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bookworm",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
 
   "features": {
     "ghcr.io/devcontainers/features/git:1": {},
@@ -18,7 +18,9 @@
     "OPENCODE_MODEL": "deepseek/deepseek-chat"
   },
 
-  "postCreateCommand": "corepack enable && corepack prepare pnpm@11.5.2 --activate && bash scripts/setup.sh && echo '✅ Codespace listo — pega tu DEEPSEEK_API_KEY y ejecuta: opencode'",
+  "onCreateCommand": "sudo bash -c 'grep -qxF \"es_ES.UTF-8 UTF-8\" /etc/locale.gen || echo \"es_ES.UTF-8 UTF-8\" >> /etc/locale.gen; locale-gen'",
+
+  "postCreateCommand": "sudo corepack enable && corepack prepare pnpm@11.5.2 --activate && bash scripts/setup.sh && echo '✅ Codespace listo — pega tu DEEPSEEK_API_KEY y ejecuta: opencode'",
 
   "postStartCommand": "echo 'Bienvenido al Taller OpenCode — Agentes de codificación (Código Sin Siesta)'",
 
