@@ -31,10 +31,15 @@ Elige **una** de las tres vías. Todas dejan el entorno listo para `opencode`.
 ```bash
 ./scripts/setup.sh                 # prepara este repo
 # o indícale otra ruta a montar:
-./scripts/setup.sh /ruta/al/repo --deepseek-key "sk-..."
+./scripts/setup.sh /ruta/al/repo
 ```
-Necesitas **Node ≥ 20**. El script instala OpenCode + OpenSpec, las dependencias,
-inicializa OpenSpec con los comandos `/opsx:*` y crea `.env`.
+Necesitas **Node ≥ 22**. El script instala OpenCode + OpenSpec, las dependencias e
+inicializa OpenSpec con los comandos `/opsx:*`.
+
+Después, **exporta** tu key en la misma terminal (OpenCode no lee `.env`):
+```bash
+export DEEPSEEK_API_KEY="sk-..."
+```
 
 Comprueba en cualquier momento:
 ```bash
@@ -47,15 +52,14 @@ Comprueba en cualquier momento:
 
 ```
 taller-opencode-starter/
-├── .devcontainer/devcontainer.json   # Node 20 + git + gh + python; corre setup.sh
+├── .devcontainer/devcontainer.json   # Node 22 + git + gh + python; corre setup.sh
 ├── scripts/
-│   ├── setup.sh                      # instalador idempotente (acepta ruta + --deepseek-key)
+│   ├── setup.sh                      # instalador idempotente (acepta ruta de proyecto)
 │   └── validate.sh                   # comprueba node, opencode, openspec, key, tests
 ├── opencode.json                     # modelo DeepSeek + instrucciones (AGENTS.md)
 ├── openspec/                         # project.md, specs/, changes/  (capa de specs)
 ├── AGENTS.md                         # instrucciones del agente (las lee OpenCode)
 ├── CLAUDE.md                         # wrapper @AGENTS.md (compatibilidad Claude Code)
-├── .env.example                      # DEEPSEEK_API_KEY=...
 ├── src/                              # mini gestor de tareas (TypeScript, ESM)
 ├── tests/                            # node:test — en verde al empezar
 └── ejercicios/                       # 01 → 04, el guion del taller
@@ -72,7 +76,7 @@ Duración orientativa: 75–90 min.
 
 ## Requisitos
 
-- Node ≥ 20 (el devcontainer ya lo trae).
+- Node ≥ 22 (el devcontainer ya lo trae).
 - **pnpm** como gestor de paquetes (el `setup.sh` lo activa con corepack).
 - Una API key de DeepSeek (se reparte en la presentación con un botón de copiar).
 

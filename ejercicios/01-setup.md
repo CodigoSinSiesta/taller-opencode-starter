@@ -10,7 +10,7 @@ en verde y los comandos `/opsx:*` disponibles.
 ## Paso 0 — Prerrequisitos (2 min)
 
 ```bash
-node --version    # >= 20
+node --version    # >= 22
 git --version
 ```
 
@@ -22,8 +22,8 @@ Si usas **Codespaces** o **Dev Container**, esto ya está resuelto: salta al Pas
 ./scripts/setup.sh
 ```
 
-El script instala OpenCode + OpenSpec, las dependencias del repo, inicializa
-OpenSpec (`/opsx:*`) y crea `.env`. Es idempotente: puedes repetirlo.
+El script instala OpenCode + OpenSpec, las dependencias del repo e inicializa
+OpenSpec (`/opsx:*`). Es idempotente: puedes repetirlo.
 
 > ¿Quieres montar **otra** carpeta? `./scripts/setup.sh /ruta/al/repo`
 
@@ -32,10 +32,11 @@ OpenSpec (`/opsx:*`) y crea `.env`. Es idempotente: puedes repetirlo.
 En la presentación hay un botón **"Copiar API key"**. Cópiala y:
 
 ```bash
-export DEEPSEEK_API_KEY="sk-...."     # pégala aquí
+export DEEPSEEK_API_KEY="sk-...."     # pégala aquí, en esta misma terminal
 ```
 
-(O ponla en `.env`, en la línea `DEEPSEEK_API_KEY=`.)
+> OpenCode lee la key de esta variable de entorno. **No** la pongas en `.env`:
+> OpenCode no lo lee y obtendrás un 401. Si abres otra terminal, vuelve a exportarla.
 
 ## Paso 3 — Comprueba que todo está listo (2 min)
 

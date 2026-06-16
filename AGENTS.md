@@ -18,8 +18,9 @@ con el flujo `/opsx:propose → /opsx:apply → /opsx:verify → /opsx:archive`.
 ## El agente: OpenCode con DeepSeek
 
 - Modelo por defecto: `deepseek/deepseek-chat` (definido en `opencode.json`).
-- La API key se toma de `DEEPSEEK_API_KEY` (env o `.env`). En el taller se reparte
-  desde la presentación con un botón de copiar.
+- La API key se toma de la variable de entorno `DEEPSEEK_API_KEY`, que debes
+  **exportar** en la terminal antes de lanzar `opencode` (OpenCode no lee `.env`).
+  En el taller se reparte desde la presentación con un botón de copiar.
 - Lanza el agente con `opencode` desde la raíz del repo.
 
 ## Flujo del taller (OpenSpec)
@@ -40,7 +41,7 @@ Los artefactos viven en `openspec/`:
 ## Qué debes hacer cuando te invoquen
 
 Si el participante dice **"empezar el taller"**:
-1. Lee `README.md` y confirma Node ≥ 20 y `DEEPSEEK_API_KEY` definida.
+1. Lee `README.md` y confirma Node ≥ 22 y `DEEPSEEK_API_KEY` exportada.
 2. Ejecuta `pnpm install && pnpm test && pnpm typecheck`. Si algo falla, **para y
    avisa**; no sigas.
 3. Abre `ejercicios/01-setup.md` y empieza por el Paso 0.
@@ -60,7 +61,7 @@ Si el participante dice **"propón la feature de prioridades"**:
 - **No** amplíes `src/task.ts` a mano para añadir prioridades: eso es justo lo
   que dirige OpenSpec en el ejercicio. Hacerlo a mano rompe la pedagogía.
 - **No** añadas base de datos ni APIs externas reales: el almacén en memoria basta.
-- **No** hagas commit de `.env` ni de la API key de DeepSeek.
+- **No** hagas commit de la API key de DeepSeek ni de ningún fichero con secretos.
 - **No** añadas hooks de lint/format salvo que el participante lo pida.
 
 ## Resolución de problemas

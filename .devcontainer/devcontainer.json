@@ -14,13 +14,9 @@
     "LC_CTYPE": "es_ES.UTF-8"
   },
 
-  "remoteEnv": {
-    "OPENCODE_MODEL": "deepseek/deepseek-chat"
-  },
-
   "onCreateCommand": "sudo bash -c 'grep -qxF \"es_ES.UTF-8 UTF-8\" /etc/locale.gen || echo \"es_ES.UTF-8 UTF-8\" >> /etc/locale.gen; locale-gen'",
 
-  "postCreateCommand": "sudo corepack enable && corepack prepare pnpm@11.5.2 --activate && bash scripts/setup.sh && echo '✅ Codespace listo — pega tu DEEPSEEK_API_KEY y ejecuta: opencode'",
+  "postCreateCommand": "sudo corepack enable && corepack prepare pnpm@11.5.2 --activate && bash scripts/setup.sh && echo '✅ Codespace listo — exporta tu key (export DEEPSEEK_API_KEY=\"sk-...\") y ejecuta: opencode'",
 
   "postStartCommand": "echo 'Bienvenido al Taller OpenCode — Agentes de codificación (Código Sin Siesta)'",
 
