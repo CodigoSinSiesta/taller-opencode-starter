@@ -3,11 +3,13 @@
 # setup.sh — Prepara el entorno del Taller OpenCode en cualquier Linux/macOS.
 #
 # Uso:
-#   ./scripts/setup.sh [RUTA_PROYECTO] [--deepseek-key <KEY>]
+#   ./scripts/setup.sh [RUTA_PROYECTO]
 #
 #   RUTA_PROYECTO   Carpeta del taller a preparar (por defecto: la raíz del repo).
 #                   Esto cubre el caso "indícale la ruta que tiene que montar".
-#   --deepseek-key  Inyecta la API key de DeepSeek en .env (opcional).
+#
+#   La API key de DeepSeek NO se gestiona aquí: expórtala en tu terminal antes de
+#   lanzar opencode  ->  export DEEPSEEK_API_KEY="sk-..."   (OpenCode no lee .env).
 #
 # Es idempotente: puedes ejecutarlo las veces que quieras.
 set -euo pipefail
@@ -22,12 +24,10 @@ err()   { echo -e "${RED}✗${NC} $*" >&2; }
 # ---- argumentos ----------------------------------------------------------
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
-DEEPSEEK_KEY=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --deepseek-key) DEEPSEEK_KEY="${2:-}"; shift 2 ;;
-    -h|--help) sed -n '2,14p' "$0"; exit 0 ;;
+    -h|--help) sed -n '2,16p' "$0"; exit 0 ;;
     *) PROJECT_DIR="$(cd "$1" && pwd)"; shift ;;
   esac
 done
@@ -94,22 +94,7 @@ else
   ok "OpenSpec ya inicializado"
 fi
 
-# ---- 6. .env -------------------------------------------------------------
-if [[ ! -f ".env" && -f ".env.example" ]]; then
-  cp .env.example .env
-  ok "Creado .env desde .env.example"
-fi
-if [[ -n "${DEEPSEEK_KEY}" && -f ".env" ]]; then
-  # sed portable (BSD/GNU)
-  if sed --version >/dev/null 2>&1; then
-    sed -i "s|^DEEPSEEK_API_KEY=.*|DEEPSEEK_API_KEY=\"${DEEPSEEK_KEY}\"|" .env
-  else
-    sed -i '' "s|^DEEPSEEK_API_KEY=.*|DEEPSEEK_API_KEY=\"${DEEPSEEK_KEY}\"|" .env
-  fi
-  ok "DEEPSEEK_API_KEY inyectada en .env"
-fi
-
-# ---- 7. Comprobación final ----------------------------------------------
+# ---- 6. Comprobación final ----------------------------------------------
 info "Verificando que el starter arranca…"
 pnpm test >/dev/null 2>&1 && ok "Tests en verde" || warn "Algún test falla — revísalo antes de empezar."
 
@@ -119,6 +104,6 @@ echo ""
 echo -e "${BLUE}Siguientes pasos:${NC}"
 echo "  1. Exporta tu key de DeepSeek (te la dan en la presentación):"
 echo "       export DEEPSEEK_API_KEY=\"sk-...\""
-echo "     (o pégala en .env)"
+echo "     (en esta misma terminal; OpenCode no lee .env)"
 echo "  2. Lanza el agente:   opencode"
 echo "  3. Abre el ejercicio: ejercicios/01-setup.md"

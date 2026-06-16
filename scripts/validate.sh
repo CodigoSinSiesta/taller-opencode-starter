@@ -10,11 +10,11 @@ fail() { echo -e "${RED}✗${NC} $*"; FAILS=$((FAILS+1)); }
 warn() { echo -e "${YELLOW}⚠️${NC}  $*"; }
 FAILS=0
 
-# Node >= 20
-if command -v node >/dev/null 2>&1 && [[ "$(node -p 'process.versions.node.split(".")[0]')" -ge 20 ]]; then
+# Node >= 22
+if command -v node >/dev/null 2>&1 && [[ "$(node -p 'process.versions.node.split(".")[0]')" -ge 22 ]]; then
   pass "Node $(node --version)"
 else
-  fail "Node >= 20 no disponible"
+  fail "Node >= 22 no disponible"
 fi
 
 # pnpm
@@ -39,13 +39,13 @@ else
 fi
 [[ -d ".opencode/command" ]] && pass "Comandos /opsx:* presentes (.opencode/command)" || warn "Faltan comandos /opsx:* — corre: openspec init --tools opencode"
 
-# DeepSeek key
-if [[ -n "${DEEPSEEK_API_KEY:-}" ]]; then
+# DeepSeek key — OpenCode la lee de la variable de entorno EXPORTADA (no de .env)
+if [[ "${DEEPSEEK_API_KEY:-}" == sk-* ]]; then
   pass "DEEPSEEK_API_KEY exportada"
-elif grep -q '^DEEPSEEK_API_KEY="sk-[^"]\+"' .env 2>/dev/null && ! grep -q '^DEEPSEEK_API_KEY="sk-"' .env 2>/dev/null; then
-  pass "DEEPSEEK_API_KEY definida en .env"
+elif [[ -n "${DEEPSEEK_API_KEY:-}" ]]; then
+  fail "DEEPSEEK_API_KEY exportada pero no parece válida (debe empezar por sk-)"
 else
-  warn "DEEPSEEK_API_KEY sin definir (pégala antes de lanzar opencode)"
+  fail "DEEPSEEK_API_KEY no exportada — corre: export DEEPSEEK_API_KEY=\"sk-...\""
 fi
 
 # Tests del starter
